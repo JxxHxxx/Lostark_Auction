@@ -71,27 +71,3 @@ def reName(date, col_name):
     dataset = pd.read_csv('C:/Users/JH/Desktop/price/dataset_'f'{date}.csv',index_col=0)
     dataset = dataset.rename({col_name:date})
     dataset = dataset.to_csv('C:/Users/JH/Desktop/price/dataset_'f'{date}.csv',encoding= 'utf-8-sig')
-
-
-      
-""" def updateData(date,save):
-    dataset_base = pd.read_csv('C:/Users/JH/Desktop/price/dataset_merge_recent.csv',index_col=0)
-    dataset_1 = pd.read_csv('C:/Users/JH/Desktop/price/dataset_'f'{date}.csv', index_col=0)
-    dataset_base = dataset_base.append(dataset_1)
-    dataset_base.to_csv('C:/Users/JH/Desktop/price/'f'{save}.csv', mode='w', encoding= 'utf-8-sig')  
- """
-
-
-""" def extractData_DayPrice(date):
-    df = pd.read_csv('C:/Users/JH/Desktop/price/tempo_price_'f'{date}.csv',encoding ='utf-8-sig', index_col=0)
-    transPose_data = df.transpose()
-    transPose_data = transPose_data.loc[['전일 평균 거래가'],:]
-    dataset = pd.DataFrame()
-    dataset = transPose_data.to_csv('C:/Users/JH/Desktop/price/dataset_'f'{date}.csv', encoding = 'utf-8-sig')
-   
-def extractData_RecentPrice(date):
-    df = pd.read_csv('C:/Users/JH/Desktop/price/tempo_price_'f'{date}.csv',encoding ='utf-8-sig', index_col=0)
-    transPose_data = df.transpose()
-    transPose_data = transPose_data.loc[['최근 거래가'],:]
-    dataset = pd.DataFrame()
-    dataset = transPose_data.to_csv('C:/Users/JH/Desktop/price/dataset_'f'{date}.csv', encoding = 'utf-8-sig') """
