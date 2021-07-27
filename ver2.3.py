@@ -86,15 +86,14 @@ def reName(date, col_name):
     dataset = dataset.rename({col_name:date})
     dataset = dataset.to_csv('C:/Users/JH/Desktop/price/dataset_'f'{date}.csv',encoding= 'utf-8-sig')
 
-# 아이템들의 변화율을 시각화 합니다.
-
-plt.rcParams["figure.figsize"] = (16,8)
-plt.rcParams['lines.linewidth'] = 2
-
-plt.rcParams['font.family'] ='Malgun Gothic'
-plt.rcParams['axes.unicode_minus'] =False
+# 아이템 가격의 변화율을 시각화 합니다.
 
 def visual(csv_file, item):
+    plt.rcParams["figure.figsize"] = (16,8)
+    plt.rcParams['lines.linewidth'] = 2
+    plt.rcParams['font.family'] ='Malgun Gothic'
+    plt.rcParams['axes.unicode_minus'] =False
+    
     dataset = pd.read_csv('C:/Users/JH/Desktop/price/'f'{csv_file}.csv',
                         encoding='utf-8-sig',
                         index_col= 'Unnamed: 0',
