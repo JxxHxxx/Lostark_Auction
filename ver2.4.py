@@ -1,4 +1,4 @@
-# ver2.4 각인서 목록을 추가
+# ver2.4 7.28 패치로 추가된 각인서 목록을 def crwal_data 의 디폴트 값에 추가
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
