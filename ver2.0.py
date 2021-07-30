@@ -1,3 +1,6 @@
+# 함수에 피라미터를 추가해 조금 더 유연하게 사용할 수 있도록 변경
+# 함수명을 조금 
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import requests
