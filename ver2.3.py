@@ -1,3 +1,6 @@
+#ver2.3 각인서 가격 변화율을 선형그래프로 볼 수 있는 visual 함수를 
+
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import requests
