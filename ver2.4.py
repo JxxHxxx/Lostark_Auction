@@ -1,3 +1,5 @@
+# ver2.4 각인서 목록을 추가
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import requests
