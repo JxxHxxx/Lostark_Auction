@@ -1,3 +1,5 @@
+# ver2.2 버전을 위해 임시로 올려둠
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import requests
