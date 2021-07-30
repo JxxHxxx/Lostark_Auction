@@ -1,3 +1,5 @@
+# ver2.2 def crwal_data 디폴트 값을 설정함, args 인자를  않으면 모든 각인서의 가격을 가져옴
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import requests
