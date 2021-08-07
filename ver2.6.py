@@ -1,3 +1,10 @@
+# ver2.4 까지 사용했던 time.sleep은 대규모 데이터를 처리해야할 때 매우 느리고 슬립을 느슨하게 잡아주지 않으면 attach error 가 발생하는 경우가 많았음
+# WebDriverWait 의 명시적 대기를 사용해 속도와 안정성을 올림
+
+# 인터넷 환경에 따라 다르지만 time.sleep 을 사용했을 때 각인서 하나당 데이터를 불러오는데 최소 1.4초의 타임슬립을 부여해야 했음
+# ver2.6의 경우 sleep 이 0.1초가 잡혀있음 ver2.4와 비교해 1.3초 감소, 현재 리스트의 길이는 59, 59*1.3 절약, 즉 76.3초를 절약
+
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -27,29 +34,30 @@ def crawl_data(date, args=None):
             '결투의 대가 각인서','절제 각인서','광전사의 비기 각인서','사냥의 시간 각인서','중갑 착용 각인서','아르데타인의 기술 각인서','세맥타통 각인서','심판자 각인서',
             '오의난무 각인서','광기 각인서','완벽한 억제 각인서','버스트 각인서','오의 강화 각인서','진실된 용맹 각인서','황제의 칙령 각인서','핸드거너 각인서',
             '연속 포격 각인서','안정된 상태 각인서','타격의 대가 각인서','질량 증가 각인서','추진력 각인서','시선 집중 각인서','속전속결 각인서','전문의 각인서','긴급구조 각인서',
-            '정밀 단도 각인서','구슬동자 각인서','최대 마나 증가 각인서']    
+            '정밀 단도 각인서','구슬동자 각인서','최대 마나 증가 각인서']  
+        
         for i in list:
             legend_grade_list.append(i) 
     else:                        
         for i in args:
             legend_grade_list.append(i) 
-    # webdriver를 이용하기 위해서는 브라우저 버전에 맞는 driver 를 다운받아야 한다.
+            
     url = "https://lostark.game.onstove.com/Market"
-
     driver = webdriver.Chrome('C:/Users/JH/Desktop/chromedriver')
     driver.get(url)
-
+    
     driver.find_element_by_class_name("grade").click()
     driver.find_element_by_xpath("//span[.='전설']").click()
 
     for i in legend_grade_list:
         txtItemName = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.ID,"txtItemName")))
         txtItemName.send_keys(i)
-        print("리스트에 있는 key 를 보냈습니다.")
+        print("success send key")
 
         WebDriverWait(driver, 3).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 
         "button.button.button--deal-submit")))[0].click()
-        print("정상적으로 검색 버튼을 눌렀습니다.")
+        print("success click")
+        # 타임슬립을 걸지 않으면 attached error 발생
         time.sleep(0.1)
         yesterday_aveg_price = WebDriverWait(driver, 3).until(EC.presence_of_all_elements_located((By.XPATH, "//td[2]/div[@class='price']/em[@data-grade='0']")))
         recently_price = WebDriverWait(driver, 3).until(EC.presence_of_all_elements_located((By.XPATH, "//td[3]/div[@class='price']/em[@data-grade='0']")))
@@ -61,11 +69,12 @@ def crawl_data(date, args=None):
                                                         '최저가': lowest_price[0].text}, ignore_index= True)
 
         WebDriverWait(driver, 3).until(EC.presence_of_all_elements_located((By.ID, "txtItemName")))[0].clear()
-        print("클리어 했습니다.")
+        print("success clear")
         
     legend_grade_price.to_csv('C:/Users/JH/Desktop/price/tempo_price_'f'{date}.csv',encoding ='utf-8-sig', index=False)
 
     driver.quit()
+    
 # def exTract 행렬 변환이 필요할 때 (이 함수는 특수한 경우에만 사용됨 extract 이라는 함수를 다시 구성할 필요가 있음)
 def exTract(date, col_name):
     df = pd.read_csv('C:/Users/JH/Desktop/price/tempo_price_'f'{date}.csv',encoding ='utf-8-sig', index_col=0)
